@@ -7,7 +7,12 @@ class Game {
     this.currentAnswers;
     this.hideStart();
     this.player = new Player(playerName);
-    this.quiz(this.questions, this.answerArray, this.createPlayfield);
+    this.quiz(
+      this.questions,
+      this.answerArray,
+      this.createPlayfield,
+      this.resetPlayfield
+    );
   }
   //Method that hides the start functionalities
   hideStart() {
@@ -39,14 +44,15 @@ class Game {
     return mergeArray;
   }
 
-  quiz(questionArray, answerArray, playfield) {
+  quiz(questionArray, answerArray, playfield, resetPlayfield) {
     let counter = 0;
     let startButton = document.getElementById("start_button");
     startButton.classList.remove("hidden");
 
     startButton.addEventListener("click", function () {
       startButton.classList.add("hidden");
-      playfield(questionArray, answerArray, counter);
+      resetPlayfield();
+      playfield(questionArray, answerArray, counter++);
     });
   }
 
@@ -55,7 +61,9 @@ class Game {
     questionOutput.textContent = questionArray[counter].question;
     let outputtedAnswers = [];
     let answerButton = document.getElementById("answer_button");
+
     answerButton.classList.remove("hidden");
+
     for (let i = 0; i < 6; i++) {
       if (answerArray[counter][i][0]) {
         outputtedAnswers.push(
@@ -72,12 +80,24 @@ class Game {
         });
       }
     }
-
     answerButton.addEventListener("click", function () {
-      console.log(outputtedAnswers[0]);
+      answerButton.classList.add("hidden");
+      //check if answers correct and give points etc
+
+      let startButton = document.getElementById("start_button");
+      startButton.value = "Next question";
+      startButton.classList.remove("hidden");
     });
   }
-  checkAnswers(outputtedAnswers, awnserArray) {
-    for (let i = 0; i < outputtedAnswers.length; i++) {}
+  resetPlayfield() {
+    for (let i = 0; i < 6; i++) {
+      let tempElement = document.getElementById(`answer${i}`);
+      if (!tempElement.classList.contains("hidden")) {
+        tempElement.classList.add("hidden");
+        if (tempElement.classList.contains("clicked")) {
+          tempElement.classList.remove("clicked");
+        }
+      }
+    }
   }
 }
