@@ -11,17 +11,6 @@ class Answer {
   show() {
     this.element.classList.remove("hidden");
   }
-  isClicked(element) {
-    element.addEventListener("click", function () {
-      if (!this.clicked) {
-        element.classList.add("clicked");
-        this.clicked = true;
-      } else {
-        element.classList.remove("clicked");
-        this.clicked = false;
-      }
-    });
-  }
   output(inputText) {
     this.element.textContent = inputText;
   }
