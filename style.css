@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+h1 {
+  padding: 10px;
+  text-align: center;
+  color: #d7cda4;
+}
+body {
+  background-color: #344058;
+}
+#main {
+  display: flex;
+  justify-content: center;
+}
+#quiz_container {
+  background-color: #658b84;
+  margin-top: 50px;
+  height: 500px;
+  width: 500px;
+  box-shadow: 10px 10px #e8d789;
+}
+.hidden {
+  display: none;
+}
