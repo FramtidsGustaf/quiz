@@ -1,21 +1,26 @@
 class Start {
   constructor() {
-    this.startButton = document.getElementById("start_button");
-    this.questions();
+    this.submitButton = document.getElementById("submit_button");
+    this.start(this.questions, this.playerNameInput);
   }
-  questions() {
-    this.startButton.addEventListener("click", function () {
-      let amountOfQuestions = document.getElementById("amount_questions").value;
-      fetch(
-        `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${amountOfQuestions} `
-      )
-        .then((respons) => respons.json())
-        .then((data) => new Game(data));
+  //method that calls two methods when startbutton is clicked
+  start(questionMethod, playerNameInputMethod) {
+    this.submitButton.addEventListener("click", function () {
+      questionMethod(playerNameInputMethod());
     });
-    this.playerName();
   }
-  playerName() {
-    let playerNameInput = document.getElementById("player_name").value;
-    new Player(playerNameInput);
+  /*Method that takes the chosen amount of questions and fetch them from the api
+  then creates an object from the Game class with the, from the api, given array and the playername as argument*/
+  questions(playerName) {
+    let amountOfQuestions = document.getElementById("amount_questions").value;
+    fetch(
+      `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${amountOfQuestions} `
+    )
+      .then((respons) => respons.json())
+      .then((data) => new Game(data, playerName));
+  }
+  /*Method that takes the players name and return it*/
+  playerNameInput() {
+    return document.getElementById("player_name").value;
   }
 }

@@ -12,40 +12,34 @@
   </head>
   <body>
     <h1 id="quiz_title">Quiz</h1>
-    <div id="main">
-      <div id="quiz_container">
-        <form id="start_input">
-          <label for="amount_questions">Hur många frågor?</label>
-          <select name="amount_questions" id="amount_questions">
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <option value="7">7</option>
-            <option value="8">8</option>
-            <option value="9">9</option>
-            <option value="10">10</option>
-          </select>
-          <input type="text" id="player_name" placeholder="Namn" />
-          <input type="button" value="Start" id="start_button" />
-        </form>
-        <h3 id="question_output"></h3>
-        <label for="choice0" id="label0"></label>
-        <input type="checkbox" id="choice0" name="choice0" class="hidden" />
-        <label for="choice1" id="label1"></label>
-        <input type="checkbox" id="choice1" name="choice1" class="hidden" />
-        <label for="choice2" id="label2"></label>
-        <input type="checkbox" id="choice2" name="choice2" class="hidden" />
-        <label for="choice3" id="label3"></label>
-        <input type="checkbox" id="choice3" name="choice3" class="hidden" />
-        <label for="choice4" id="label4"></label>
-        <input type="checkbox" id="choice4" name="choice4" class="hidden" />
-        <label for="choice5" id="label5"></label>
-        <input type="checkbox" id="choice5" name="choice5" class="hidden" />
-        <input type="button" value="Svara" id="answerButton" class="hidden" />
-      </div>
+    <form id="start_input">
+      <label for="amount_questions">How many questions?</label>
+      <select name="amount_questions" id="amount_questions">
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+      </select>
+      <input type="text" id="player_name" placeholder="Name" />
+      <input type="button" value="Submit" id="submit_button" />
+    </form>
+    <h3 id="question_output"></h3>
+    <div class="grid">
+      <div id="answer0" class="hidden answer_div"></div>
+      <div id="answer1" class="hidden answer_div"></div>
+      <div id="answer2" class="hidden answer_div"></div>
+      <div id="answer3" class="hidden answer_div"></div>
+      <div id="answer4" class="hidden answer_div"></div>
+      <div id="answer5" class="hidden answer_div"></div>
     </div>
+    <input type="button" value="Start" id="start_button" class="hidden" />
+    <input type="button" value="Answer" id="answer_button" class="hidden" />
     <script src="code/code.js"></script>
     <script src="code/game.js"></script>
     <script src="code/start.js"></script>
     <script src="code/player.js"></script>
+    <script src="code/answer.js"></script>
   </body>
 </html>

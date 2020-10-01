@@ -1,16 +1,21 @@
 class Game {
-  constructor(questionArray) {
+  constructor(questionArray, playerName) {
     this.questions = questionArray;
-    console.log(this.questions);
+    //console.log(this.questions);
     this.answerArray = this.createAnswerArray(this.questions);
-    console.log(this.answerArray);
+    //console.log(this.answerArray);
+    this.currentAnswers;
     this.hideStart();
-    this.quiz(this.questions, this.answerArray);
+    this.player = new Player(playerName);
+    this.quiz(this.questions, this.answerArray, this.createPlayfield);
   }
+  //Method that hides the start functionalities
   hideStart() {
     let start = document.getElementById("start_input");
     start.setAttribute("class", "hidden");
   }
+  /*Method that takes all the answers and the boolean that says whether they are correct or not and
+  puts them in a multidimentional array*/
   createAnswerArray(inputArray) {
     let answers = [];
     let correctAnswers = [];
@@ -33,17 +38,46 @@ class Game {
     }
     return mergeArray;
   }
-  quiz(questionArray, answerArray) {
+
+  quiz(questionArray, answerArray, playfield) {
     let counter = 0;
+    let startButton = document.getElementById("start_button");
+    startButton.classList.remove("hidden");
+
+    startButton.addEventListener("click", function () {
+      startButton.classList.add("hidden");
+      playfield(questionArray, answerArray, counter);
+    });
+  }
+
+  createPlayfield(questionArray, answerArray, counter) {
     let questionOutput = document.getElementById("question_output");
     questionOutput.textContent = questionArray[counter].question;
+    let outputtedAnswers = [];
+    let answerButton = document.getElementById("answer_button");
+    answerButton.classList.remove("hidden");
     for (let i = 0; i < 6; i++) {
       if (answerArray[counter][i][0]) {
-        let tempChoice = document.getElementById(`choice${i}`);
-        tempChoice.classList.remove("hidden");
+        outputtedAnswers.push(
+          new Answer(i, answerArray[counter][i][0], answerArray[counter][i][1])
+        );
+        outputtedAnswers[i].element.addEventListener("click", function () {
+          if (!outputtedAnswers[i].clicked) {
+            outputtedAnswers[i].element.classList.add("clicked");
+            outputtedAnswers[i].clicked = true;
+          } else {
+            outputtedAnswers[i].element.classList.remove("clicked");
+            outputtedAnswers[i].clicked = false;
+          }
+        });
       }
     }
 
-    let answerButton = document.getElementById("answerButton");
+    answerButton.addEventListener("click", function () {
+      console.log(outputtedAnswers[0]);
+    });
+  }
+  checkAnswers(outputtedAnswers, awnserArray) {
+    for (let i = 0; i < outputtedAnswers.length; i++) {}
   }
 }
