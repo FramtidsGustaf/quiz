@@ -6,4 +6,8 @@ class Player {
   changeScore(questionPoints) {
     this.score += questionPoints;
   }
+  currentScoreOutput() {
+    let questionFeedback = document.getElementById("question_feedback");
+    questionFeedback.textContent = `Score: ${this.score}`;
+  }
 }

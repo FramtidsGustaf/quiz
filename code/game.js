@@ -63,9 +63,8 @@ class Game {
   createPlayfield(questionArray, answerArray, counter, player, correct) {
     let questionOutput = document.getElementById("question_output");
     questionOutput.textContent = questionArray[counter].question;
-    let outputtedAnswers = [];
     let answerButton = document.getElementById("answer_button");
-
+    let outputtedAnswers = [];
     answerButton.classList.remove("hidden");
 
     for (let i = 0; i < 6; i++) {
@@ -84,9 +83,11 @@ class Game {
         });
       }
     }
+    outputtedAnswers = [];
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
       correct(outputtedAnswers, player);
+      outputtedAnswers = [];
       //check if answers correct and give points etc
       let startButton = document.getElementById("start_button");
       startButton.value = "Next question";
@@ -118,26 +119,28 @@ class Game {
   correct(answerdQuestion, player) {
     let amountCorrect = 0;
     let amountClickedAndCorrect = 0;
+    console.log(answerdQuestion);
 
     //having some problems that true elements gets color red from time to time
+    //having some problems that score increments to much
     for (let i = 0; i < answerdQuestion.length; i++) {
       let answerElement = document.getElementById(`answer${i}`);
       answerElement.classList.remove("answer_div");
 
       if (answerdQuestion[i].correct) {
-        amountCorrect++;
         answerElement.classList.add("correct_div");
-      }
-      if (!answerdQuestion[i].correct) {
+        amountCorrect++;
+      } else {
         answerElement.classList.add("false_div");
       }
-
       if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
         amountClickedAndCorrect++;
       }
     }
-    if (amountCorrect === amountClickedAndCorrect) {
+    if (amountCorrect == amountClickedAndCorrect) {
       player.score++;
+      player.currentScoreOutput();
     }
+    this.outputtedAnswers = [];
   }
 }
