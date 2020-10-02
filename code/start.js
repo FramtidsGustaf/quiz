@@ -14,7 +14,7 @@ class Start {
   questions(playerName) {
     let amountOfQuestions = document.getElementById("amount_questions").value;
     fetch(
-      `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${amountOfQuestions} `
+      `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${amountOfQuestions}`
     )
       .then((respons) => respons.json())
       .then((data) => new Game(data, playerName));

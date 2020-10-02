@@ -1,6 +1,7 @@
 class Game {
   constructor(questionArray, playerName) {
     this.questions = questionArray;
+    console.log(questionArray);
     //console.log(this.questions);
     this.answerArray = this.createAnswerArray(this.questions);
     //console.log(this.answerArray);
@@ -102,6 +103,7 @@ class Game {
       }
     }
   }
+  //method that checks if answer is correct
   correct(answerdQuestion, player) {
     let amountCorrect = 0;
     let amountClickedAndCorrect = 0;
