@@ -13,7 +13,8 @@ class Game {
       this.answerArray,
       this.createPlayfield,
       this.resetPlayfield,
-      this.player
+      this.player,
+      this.correct
     );
   }
   //Method that hides the start functionalities
@@ -43,10 +44,11 @@ class Game {
         mergeArray[i].push(temp);
       }
     }
+    console.log(mergeArray);
     return mergeArray;
   }
 
-  quiz(questionArray, answerArray, playfield, resetPlayfield, player) {
+  quiz(questionArray, answerArray, playfield, resetPlayfield, player, correct) {
     let counter = 0;
     let startButton = document.getElementById("start_button");
     startButton.classList.remove("hidden");
@@ -54,11 +56,11 @@ class Game {
     startButton.addEventListener("click", function () {
       startButton.classList.add("hidden");
       resetPlayfield();
-      playfield(questionArray, answerArray, counter++, player);
+      playfield(questionArray, answerArray, counter++, player, correct);
     });
   }
 
-  createPlayfield(questionArray, answerArray, counter, player) {
+  createPlayfield(questionArray, answerArray, counter, player, correct) {
     let questionOutput = document.getElementById("question_output");
     questionOutput.textContent = questionArray[counter].question;
     let outputtedAnswers = [];
@@ -84,7 +86,7 @@ class Game {
     }
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
-      console.log(outputtedAnswers[0]);
+      correct(outputtedAnswers, player);
       //check if answers correct and give points etc
       let startButton = document.getElementById("start_button");
       startButton.value = "Next question";
@@ -101,6 +103,15 @@ class Game {
           tempElement.classList.remove("clicked");
         }
       }
+      if (!tempElement.classList.contains("answer_div")) {
+        tempElement.classList.add("answer_div");
+      }
+      if (tempElement.classList.contains("correct_div")) {
+        tempElement.classList.remove("correct_div");
+      }
+      if (tempElement.classList.contains("false_div")) {
+        tempElement.classList.remove("false_div");
+      }
     }
   }
   //method that checks if answer is correct
@@ -108,16 +119,25 @@ class Game {
     let amountCorrect = 0;
     let amountClickedAndCorrect = 0;
 
+    //having some problems that true elements gets color red from time to time
     for (let i = 0; i < answerdQuestion.length; i++) {
+      let answerElement = document.getElementById(`answer${i}`);
+      answerElement.classList.remove("answer_div");
+
       if (answerdQuestion[i].correct) {
         amountCorrect++;
-        let answerElement = document.getElementById(`answer${i}`);
-        answerElement.classList;
+        answerElement.classList.add("correct_div");
+      }
+      if (!answerdQuestion[i].correct) {
+        answerElement.classList.add("false_div");
       }
 
       if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
         amountClickedAndCorrect++;
       }
+    }
+    if (amountCorrect === amountClickedAndCorrect) {
+      player.score++;
     }
   }
 }
