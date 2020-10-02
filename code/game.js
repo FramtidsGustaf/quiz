@@ -107,16 +107,17 @@ class Game {
   correct(answerdQuestion, player) {
     let amountCorrect = 0;
     let amountClickedAndCorrect = 0;
-    for (let answer of answerdQuestion) {
-      if (answer.correct) {
+
+    for (let i = 0; i < answerdQuestion.length; i++) {
+      if (answerdQuestion[i].correct) {
         amountCorrect++;
+        let answerElement = document.getElementById(`answer${i}`);
+        answerElement.classList;
       }
-      if (answer.correct && answer.clicked) {
+
+      if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
         amountClickedAndCorrect++;
       }
-    }
-    if (amountCorrect && amountClickedAndCorrect) {
-      player.score++;
     }
   }
 }
