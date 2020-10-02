@@ -11,7 +11,8 @@ class Game {
       this.questions,
       this.answerArray,
       this.createPlayfield,
-      this.resetPlayfield
+      this.resetPlayfield,
+      this.player
     );
   }
   //Method that hides the start functionalities
@@ -44,7 +45,7 @@ class Game {
     return mergeArray;
   }
 
-  quiz(questionArray, answerArray, playfield, resetPlayfield) {
+  quiz(questionArray, answerArray, playfield, resetPlayfield, player) {
     let counter = 0;
     let startButton = document.getElementById("start_button");
     startButton.classList.remove("hidden");
@@ -52,11 +53,11 @@ class Game {
     startButton.addEventListener("click", function () {
       startButton.classList.add("hidden");
       resetPlayfield();
-      playfield(questionArray, answerArray, counter++);
+      playfield(questionArray, answerArray, counter++, player);
     });
   }
 
-  createPlayfield(questionArray, answerArray, counter) {
+  createPlayfield(questionArray, answerArray, counter, player) {
     let questionOutput = document.getElementById("question_output");
     questionOutput.textContent = questionArray[counter].question;
     let outputtedAnswers = [];
@@ -82,13 +83,14 @@ class Game {
     }
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
+      console.log(outputtedAnswers[0]);
       //check if answers correct and give points etc
-
       let startButton = document.getElementById("start_button");
       startButton.value = "Next question";
       startButton.classList.remove("hidden");
     });
   }
+  //method that makes the questions go back to normal
   resetPlayfield() {
     for (let i = 0; i < 6; i++) {
       let tempElement = document.getElementById(`answer${i}`);
@@ -98,6 +100,21 @@ class Game {
           tempElement.classList.remove("clicked");
         }
       }
+    }
+  }
+  correct(answerdQuestion, player) {
+    let amountCorrect = 0;
+    let amountClickedAndCorrect = 0;
+    for (let answer of answerdQuestion) {
+      if (answer.correct) {
+        amountCorrect++;
+      }
+      if (answer.correct && answer.clicked) {
+        amountClickedAndCorrect++;
+      }
+    }
+    if (amountCorrect && amountClickedAndCorrect) {
+      player.score++;
     }
   }
 }

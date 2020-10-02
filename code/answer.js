@@ -11,6 +11,7 @@ class Answer {
   show() {
     this.element.classList.remove("hidden");
   }
+
   output(inputText) {
     this.element.textContent = inputText;
   }
