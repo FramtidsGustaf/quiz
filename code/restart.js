@@ -1,13 +1,10 @@
-class Start {
+class Restart {
   constructor() {
-    this.submitButton = document.getElementById("submit_button");
-    this.start(this.questions, this.playerNameInput);
+    this.start(this.questions, this.previousNameInput);
   }
   //method that calls two methods when startbutton is clicked
-  start(questionMethod, playerNameInputMethod) {
-    this.submitButton.addEventListener("click", function () {
-      questionMethod(playerNameInputMethod());
-    });
+  start(questionMethod, previousNameInputMethod) {
+    questionMethod(previousNameInputMethod());
   }
   /*Method that takes the chosen amount of questions and fetch them from the api
   then creates an object from the Game class with the, from the api, given array and the playername as argument*/
@@ -19,11 +16,8 @@ class Start {
       .then((respons) => respons.json())
       .then((data) => new Game(data, playerName));
   }
-  /*Method that takes the players name and return it*/
-  playerNameInput() {
-    let playerName = document.getElementById("player_name").value;
-    localStorage.setItem("playerName", playerName);
-
-    return playerName;
+  /*Method that takes the player name from the session storage and return it*/
+  previousNameInput() {
+    return sessionStorage.getItem("playerName");
   }
 }
