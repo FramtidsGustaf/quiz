@@ -49,7 +49,6 @@ class MethodCollection {
         mergeArray[i].push(temp);
       }
     }
-    console.log(mergeArray);
     return mergeArray;
   }
   //Method that hides the start functionalities
@@ -76,14 +75,14 @@ class MethodCollection {
         amountClickedAndCorrect++;
       }
     }
-    if (amountCorrect == amountClickedAndCorrect) {
-      player.score++;
+    if (amountCorrect === amountClickedAndCorrect) {
+      player.changeScore(1);
       player.currentScoreOutput();
     }
   }
   //method that outputs the question and the answers and finaly returns an array filled with objects from the class Answer
   createPlayfield(questionArray, answerArray, counter) {
-    this.answerNumber.textContent = `Question: ${counter + 1}`;
+    this.answerNumber.textContent = `Question: ${counter + 1}/${questionArray.length}`;
     this.questionCategory.textContent =
       questionArray[counter].category === ""
         ? "Category: Random"

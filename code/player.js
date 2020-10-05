@@ -1,6 +1,6 @@
 class Player {
   constructor(name) {
-    this.name = name;
+    this.name = name || "Mysterious Player";
     this.score = 0;
     this.questionFeedback = document.getElementById("question_feedback");
   }
@@ -12,5 +12,6 @@ class Player {
   }
   resetScore() {
     this.questionFeedback.textContent = "";
+    this.score = 0;
   }
 }
