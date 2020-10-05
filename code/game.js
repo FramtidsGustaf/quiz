@@ -1,17 +1,17 @@
 class Game {
   constructor(questionArray, playerName) {
     this.questions = questionArray;
-    this.methods = new MethodCollection();
+    this.playfield = new Playfield();
     this.currentAnswers;
-    this.methods.hideStart();
+    this.playfield.hideStart();
     this.player = new Player(playerName);
-    this.quiz(this.methods, this.questions, this.player);
+    this.quiz(this.playfield, this.questions, this.player);
   }
 
-  quiz(methods, questionsInput, player) {
+  quiz(playfield, questionsInput, player) {
     let counter = 0;
     let questions = questionsInput;
-    let answerArray = methods.createAnswerArray(questions);
+    let answerArray = playfield.createAnswerArray(questions);
     let startButton = document.getElementById("start_button");
     startButton.classList.remove("hidden");
     let answerButton = document.getElementById("answer_button");
@@ -30,13 +30,13 @@ class Game {
       startMessage.classList.add("hidden");
       answerButton.classList.remove("hidden");
       startButton.classList.add("hidden");
-      methods.resetPlayfield();
-      answersToOutput = methods.createPlayfield(questions, answerArray, counter++);
+      playfield.resetPlayfield();
+      answersToOutput = playfield.createPlayfield(questions, answerArray, counter++);
     });
 
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
-      methods.correctingAnswers(player, answersToOutput);
+      playfield.correctingAnswers(player, answersToOutput);
       if (counter === answerArray.length) {
         resultButton.classList.remove("hidden");
       } else {
@@ -50,28 +50,28 @@ class Game {
       restart.classList.remove("hidden");
       done.classList.remove("hidden");
       resultButton.classList.add("hidden");
-      methods.resetPlayfield();
+      playfield.resetPlayfield();
       if (player.score === 1) {
-        message.textContent = `Congrats! You got ${player.score} point!`;
+        message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
       } else {
-        message.textContent = `Congrats! You got ${player.score} points!`;
+        message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
       }
       message.classList.remove("hidden");
     });
 
     restart.addEventListener("click", function () {
-      this.answerArray = methods.createAnswerArray(questions);
+      this.answerArray = playfield.createAnswerArray(questions);
       startMessage.classList.remove("hidden");
       restart.classList.add("hidden");
       done.classList.add("hidden");
       counter = 0;
-      methods.resetPlayfield();
+      playfield.resetPlayfield();
       fetch(
         `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${questions.length}`
       )
         .then((respons) => respons.json())
         .then((data) => (questions = data))
-        .then((questions) => (answerArray = methods.createAnswerArray(questions)));
+        .then((questions) => (answerArray = playfield.createAnswerArray(questions)));
 
       startButton.value = "Start";
       startButton.classList.remove("hidden");
@@ -80,7 +80,7 @@ class Game {
     done.addEventListener("click", function () {
       done.classList.add("hidden");
       restart.classList.add("hidden");
-      methods.resetPlayfield();
+      playfield.resetPlayfield();
       message.textContent = "Thank you for playing!";
     });
   }

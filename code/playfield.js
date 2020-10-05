@@ -1,4 +1,4 @@
-class MethodCollection {
+class Playfield {
   constructor() {
     this.questionElement = document.getElementById("question_output");
     this.questionCategory = document.getElementById("question_category");
