@@ -2,7 +2,6 @@ class Game {
   constructor(questionArray, playerName) {
     this.questions = questionArray;
     this.playfield = new Playfield();
-    this.currentAnswers;
     this.playfield.hideStart();
     this.player = new Player(playerName);
     this.quiz(this.playfield, this.questions, this.player);
