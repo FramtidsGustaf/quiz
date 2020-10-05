@@ -2,12 +2,15 @@ class Player {
   constructor(name) {
     this.name = name;
     this.score = 0;
+    this.questionFeedback = document.getElementById("question_feedback");
   }
   changeScore(questionPoints) {
     this.score += questionPoints;
   }
   currentScoreOutput() {
-    let questionFeedback = document.getElementById("question_feedback");
-    questionFeedback.textContent = `Score: ${this.score}`;
+    this.questionFeedback.textContent = `Score: ${this.score}`;
+  }
+  resetScore() {
+    this.questionFeedback.textContent = "";
   }
 }

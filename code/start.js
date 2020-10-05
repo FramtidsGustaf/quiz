@@ -22,8 +22,6 @@ class Start {
   /*Method that takes the players name and return it*/
   playerNameInput() {
     let playerName = document.getElementById("player_name").value;
-    localStorage.setItem("playerName", playerName);
-
     return playerName;
   }
 }

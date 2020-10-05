@@ -1,7 +1,13 @@
 class MethodCollection {
+  constructor() {
+    this.questionElement = document.getElementById("question_output");
+    this.questionCategory = document.getElementById("question_category");
+    this.answerNumber = document.getElementById("question_number");
+  }
   resetPlayfield() {
-    let questionElement = document.getElementById("question_output");
-    questionElement.textContent = "";
+    this.questionElement.textContent = "";
+    this.questionCategory.textContent = "";
+    this.answerNumber.textContent = "";
     for (let i = 0; i < 6; i++) {
       let tempElement = document.getElementById(`answer${i}`);
       if (!tempElement.classList.contains("hidden")) {
@@ -55,7 +61,6 @@ class MethodCollection {
   correctingAnswers(player, answerdQuestion) {
     let amountCorrect = 0;
     let amountClickedAndCorrect = 0;
-    console.log(answerdQuestion);
 
     for (let i = 0; i < answerdQuestion.length; i++) {
       let answerElement = document.getElementById(`answer${i}`);
@@ -78,8 +83,12 @@ class MethodCollection {
   }
   //method that outputs the question and the answers and finaly returns an array filled with objects from the class Answer
   createPlayfield(questionArray, answerArray, counter) {
-    let questionOutput = document.getElementById("question_output");
-    questionOutput.textContent = questionArray[counter].question;
+    this.answerNumber.textContent = `Question: ${counter + 1}`;
+    this.questionCategory.textContent =
+      questionArray[counter].category === ""
+        ? "Category: Random"
+        : `Category: ${questionArray[counter].category}`;
+    this.questionElement.textContent = questionArray[counter].question;
     let outputtedAnswers = [];
 
     for (let i = 0; i < 6; i++) {
