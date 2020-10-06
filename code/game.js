@@ -86,7 +86,8 @@ class Game {
       }
       if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
         amountClickedAndCorrect++;
-      } else if (answerdQuestion[i].clicked) {
+      }
+      if (answerdQuestion[i].clicked) {
         amountClicked++;
       }
     }
