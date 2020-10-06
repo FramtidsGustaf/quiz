@@ -52,7 +52,7 @@ class Game {
       startMessage.classList.remove("hidden");
       restart.classList.add("hidden");
       done.classList.add("hidden");
-      playfield.counter = 0;
+      playfield.resetCounter();
       playfield.resetPlayfield();
       fetch(
         `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${questions.length}`

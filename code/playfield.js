@@ -97,4 +97,7 @@ class Playfield {
       startButton.classList.remove("hidden");
     }
   }
+  resetCounter() {
+    this.counter = 0;
+  }
 }
