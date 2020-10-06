@@ -3,6 +3,12 @@ class Playfield {
     this.questionElement = document.getElementById("question_output");
     this.questionCategory = document.getElementById("question_category");
     this.questionNumber = document.getElementById("question_number");
+    this.restart = document.getElementById("restart_button");
+    this.resultButton = document.getElementById("result_button");
+    this.done = document.getElementById("done_button");
+    this.message = document.getElementById("question_output");
+    this.start = document.getElementById("start_input");
+    this.counter = 0;
   }
   //resets the playfield
   resetPlayfield() {
@@ -30,23 +36,24 @@ class Playfield {
   }
   //hides the start functionalities
   hideStart() {
-    let start = document.getElementById("start_input");
-    start.setAttribute("class", "hidden");
+    this.start.setAttribute("class", "hidden");
   }
   //outputs the question and the answers and finaly returns an array filled with objects from the class Answer
-  createPlayfield(questionArray, answerArray, counter) {
-    this.questionNumber.textContent = `Question: ${counter + 1}/${questionArray.length}`;
+  createPlayfield(questionArray, answerArray) {
+    this.questionNumber.textContent = `Question: ${this.counter + 1}/${
+      questionArray.length
+    }`;
     this.questionCategory.textContent =
-      questionArray[counter].category === ""
+      questionArray[this.counter].category === ""
         ? "Category: Random"
-        : `Category: ${questionArray[counter].category}`;
-    this.questionElement.textContent = questionArray[counter].question;
+        : `Category: ${questionArray[this.counter].category}`;
+    this.questionElement.textContent = questionArray[this.counter].question;
     let outputtedAnswers = [];
 
     for (let i = 0; i < 6; i++) {
-      if (answerArray[counter][i][0]) {
+      if (answerArray[this.counter][i][0]) {
         outputtedAnswers.push(
-          new Answer(i, answerArray[counter][i][0], answerArray[counter][i][1])
+          new Answer(i, answerArray[this.counter][i][0], answerArray[this.counter][i][1])
         );
         outputtedAnswers[i].element.addEventListener("click", function () {
           if (!outputtedAnswers[i].clicked) {
@@ -59,32 +66,38 @@ class Playfield {
         });
       }
     }
+    this.counter++;
     return outputtedAnswers;
   }
   //outputs the quitscreen when user press the done button
-  quitScreen(done, restart, playfield, message) {
-    done.classList.add("hidden");
-    restart.classList.add("hidden");
-    playfield.resetPlayfield();
-    message.textContent = "Thank you for playing!";
+  quitScreen(playfield) {
+    let done = this.done;
+    let restart = this.restart;
+    let message = this.message;
+    this.done.addEventListener("click", function () {
+      done.classList.add("hidden");
+      restart.classList.add("hidden");
+      playfield.resetPlayfield();
+      message.textContent = "Thank you for playing!";
+    });
   }
   //outputs the resultscreen when user press the get resultbutton
-  resultScreen(restart, done, resultButton, playfield, player, message) {
-    restart.classList.remove("hidden");
-    done.classList.remove("hidden");
-    resultButton.classList.add("hidden");
+  resultScreen(playfield, player) {
+    this.restart.classList.remove("hidden");
+    this.done.classList.remove("hidden");
+    this.resultButton.classList.add("hidden");
     playfield.resetPlayfield();
     if (player.score === 1) {
-      message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
+      this.message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
     } else {
-      message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
+      this.message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
     }
-    message.classList.remove("hidden");
+    this.message.classList.remove("hidden");
   }
   //toggles between buttons and their values
-  resultStartNextQuestionToggle(counter, answerArray, resultButton) {
-    if (counter === answerArray.length) {
-      resultButton.classList.remove("hidden");
+  resultStartNextQuestionToggle(answerArray) {
+    if (this.counter === answerArray.length) {
+      this.resultButton.classList.remove("hidden");
     } else {
       let startButton = document.getElementById("start_button");
       startButton.value = "Next question";

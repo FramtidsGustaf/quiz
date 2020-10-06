@@ -4,17 +4,18 @@ class Game {
     this.playfield = new Playfield();
     this.playfield.hideStart();
     this.player = new Player(playerName); //creates an object of the class Player
+    //calling the "main-method"
     this.quiz(
       this.playfield,
       this.questions,
       this.player,
       this.correctingAnswers,
       this.createAnswerArray
-    ); //calls the "main method"
+    );
   }
   //The whole quiz is controlled from this method
   quiz(playfield, questionsInput, player, correctingAnswers, createAnswerArray) {
-    let counter = 0;
+    //let counter = 0;
     let questions = questionsInput;
     let answerArray = createAnswerArray(questions);
     let startButton = document.getElementById("start_button");
@@ -23,7 +24,6 @@ class Game {
     let answersToOutput;
     let restart = document.getElementById("restart_button");
     let done = document.getElementById("done_button");
-    let message = document.getElementById("question_output");
     let resultButton = document.getElementById("result_button");
     let startMessage = document.getElementById("start_message");
     startMessage.classList.remove("hidden");
@@ -35,24 +35,24 @@ class Game {
       answerButton.classList.remove("hidden");
       startButton.classList.add("hidden");
       playfield.resetPlayfield();
-      answersToOutput = playfield.createPlayfield(questions, answerArray, counter++);
+      answersToOutput = playfield.createPlayfield(questions, answerArray);
     });
 
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
       correctingAnswers(player, answersToOutput);
-      playfield.resultStartNextQuestionToggle(counter, answerArray, resultButton);
+      playfield.resultStartNextQuestionToggle(answerArray);
     });
 
     resultButton.addEventListener("click", function () {
-      playfield.resultScreen(restart, done, resultButton, playfield, player, message);
+      playfield.resultScreen(playfield, player);
     });
 
     restart.addEventListener("click", function () {
       startMessage.classList.remove("hidden");
       restart.classList.add("hidden");
       done.classList.add("hidden");
-      counter = 0;
+      playfield.counter = 0;
       playfield.resetPlayfield();
       fetch(
         `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${questions.length}`
@@ -65,9 +65,9 @@ class Game {
       startButton.classList.remove("hidden");
       player.resetScore();
     });
-    done.addEventListener("click", function () {
-      playfield.quitScreen(done, restart, playfield, message);
-    });
+    //done.addEventListener("click", function () {
+    playfield.quitScreen(playfield);
+    //});
   }
   //method that checks if answer is correct
   correctingAnswers(player, answerdQuestion) {
@@ -108,6 +108,7 @@ class Game {
       let tempCorrectAnswers = Object.values(element.correct_answers);
       correctAnswers.push(tempCorrectAnswers);
     }
+
     let mergeArray = answers.map(() => new Array());
 
     for (let i = 0; i < mergeArray.length; i++) {
