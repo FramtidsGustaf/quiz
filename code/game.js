@@ -90,7 +90,7 @@ class Game {
         amountClicked++;
       }
     }
-    if (amountCorrect === (amountClickedAndCorrect + amountClicked) / 2) {
+    if (amountCorrect === amountClickedAndCorrect && amountClicked === amountCorrect) {
       player.changeScore(1);
       player.currentScoreOutput();
     }
