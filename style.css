@@ -92,3 +92,6 @@ input[type="button"]:hover {
 #question_category {
   color: #f038ff;
 }
+#question_feedback {
+  margin-top: 10px;
+}
