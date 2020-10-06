@@ -15,7 +15,6 @@ class Game {
   }
   //The whole quiz is controlled from this method
   quiz(playfield, questionsInput, player, correctingAnswers, createAnswerArray) {
-    //let counter = 0;
     let questions = questionsInput;
     let answerArray = createAnswerArray(questions);
     let startButton = document.getElementById("start_button");
@@ -45,7 +44,8 @@ class Game {
     });
 
     resultButton.addEventListener("click", function () {
-      playfield.resultScreen(playfield, player);
+      playfield.resetPlayfield();
+      playfield.resultScreen(player);
     });
 
     restart.addEventListener("click", function () {
@@ -65,9 +65,11 @@ class Game {
       startButton.classList.remove("hidden");
       player.resetScore();
     });
-    //done.addEventListener("click", function () {
-    playfield.quitScreen(playfield);
-    //});
+
+    done.addEventListener("click", function () {
+      playfield.resetPlayfield();
+      playfield.quitScreen();
+    });
   }
   //method that checks if answer is correct
   correctingAnswers(player, answerdQuestion) {

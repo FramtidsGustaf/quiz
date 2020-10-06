@@ -70,23 +70,16 @@ class Playfield {
     return outputtedAnswers;
   }
   //outputs the quitscreen when user press the done button
-  quitScreen(playfield) {
-    let done = this.done;
-    let restart = this.restart;
-    let message = this.message;
-    this.done.addEventListener("click", function () {
-      done.classList.add("hidden");
-      restart.classList.add("hidden");
-      playfield.resetPlayfield();
-      message.textContent = "Thank you for playing!";
-    });
+  quitScreen() {
+    done.classList.add("hidden");
+    restart.classList.add("hidden");
+    message.textContent = "Thank you for playing!";
   }
   //outputs the resultscreen when user press the get resultbutton
-  resultScreen(playfield, player) {
+  resultScreen(player) {
     this.restart.classList.remove("hidden");
     this.done.classList.remove("hidden");
     this.resultButton.classList.add("hidden");
-    playfield.resetPlayfield();
     if (player.score === 1) {
       this.message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
     } else {
