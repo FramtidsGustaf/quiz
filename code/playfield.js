@@ -4,6 +4,7 @@ class Playfield {
     this.questionCategory = document.getElementById("question_category");
     this.questionNumber = document.getElementById("question_number");
   }
+  //resets the playfield
   resetPlayfield() {
     this.questionElement.textContent = "";
     this.questionCategory.textContent = "";
@@ -27,12 +28,12 @@ class Playfield {
       }
     }
   }
-  //Method that hides the start functionalities
+  //hides the start functionalities
   hideStart() {
     let start = document.getElementById("start_input");
     start.setAttribute("class", "hidden");
   }
-  //method that outputs the question and the answers and finaly returns an array filled with objects from the class Answer
+  //outputs the question and the answers and finaly returns an array filled with objects from the class Answer
   createPlayfield(questionArray, answerArray, counter) {
     this.questionNumber.textContent = `Question: ${counter + 1}/${questionArray.length}`;
     this.questionCategory.textContent =
@@ -59,5 +60,35 @@ class Playfield {
       }
     }
     return outputtedAnswers;
+  }
+  //outputs the quitscreen when user press the done button
+  quitScreen(done, restart, playfield, message) {
+    done.classList.add("hidden");
+    restart.classList.add("hidden");
+    playfield.resetPlayfield();
+    message.textContent = "Thank you for playing!";
+  }
+  //outputs the resultscreen when user press the get resultbutton
+  resultScreen(restart, done, resultButton, playfield, player, message) {
+    restart.classList.remove("hidden");
+    done.classList.remove("hidden");
+    resultButton.classList.add("hidden");
+    playfield.resetPlayfield();
+    if (player.score === 1) {
+      message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
+    } else {
+      message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
+    }
+    message.classList.remove("hidden");
+  }
+  //toggles between buttons and their values
+  resultStartNextQuestionToggle(counter, answerArray, resultButton) {
+    if (counter === answerArray.length) {
+      resultButton.classList.remove("hidden");
+    } else {
+      let startButton = document.getElementById("start_button");
+      startButton.value = "Next question";
+      startButton.classList.remove("hidden");
+    }
   }
 }

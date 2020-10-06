@@ -3,14 +3,14 @@ class Game {
     this.questions = questionArray;
     this.playfield = new Playfield();
     this.playfield.hideStart();
-    this.player = new Player(playerName);
+    this.player = new Player(playerName); //creates an object of the class Player
     this.quiz(
       this.playfield,
       this.questions,
       this.player,
       this.correctingAnswers,
       this.createAnswerArray
-    );
+    ); //calls the "main method"
   }
   //The whole quiz is controlled from this method
   quiz(playfield, questionsInput, player, correctingAnswers, createAnswerArray) {
@@ -24,14 +24,13 @@ class Game {
     let restart = document.getElementById("restart_button");
     let done = document.getElementById("done_button");
     let message = document.getElementById("question_output");
+    let resultButton = document.getElementById("result_button");
     let startMessage = document.getElementById("start_message");
     startMessage.classList.remove("hidden");
     let nameToOutput = document.getElementById("user_name");
     nameToOutput.textContent = player.name;
-    let resultButton = document.getElementById("result_button");
 
     startButton.addEventListener("click", function () {
-      console.log(answerArray);
       startMessage.classList.add("hidden");
       answerButton.classList.remove("hidden");
       startButton.classList.add("hidden");
@@ -42,26 +41,11 @@ class Game {
     answerButton.addEventListener("click", function () {
       answerButton.classList.add("hidden");
       correctingAnswers(player, answersToOutput);
-      if (counter === answerArray.length) {
-        resultButton.classList.remove("hidden");
-      } else {
-        let startButton = document.getElementById("start_button");
-        startButton.value = "Next question";
-        startButton.classList.remove("hidden");
-      }
+      playfield.resultStartNextQuestionToggle(counter, answerArray, resultButton);
     });
 
     resultButton.addEventListener("click", function () {
-      restart.classList.remove("hidden");
-      done.classList.remove("hidden");
-      resultButton.classList.add("hidden");
-      playfield.resetPlayfield();
-      if (player.score === 1) {
-        message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
-      } else {
-        message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
-      }
-      message.classList.remove("hidden");
+      playfield.resultScreen(restart, done, resultButton, playfield, player, message);
     });
 
     restart.addEventListener("click", function () {
@@ -82,10 +66,7 @@ class Game {
       player.resetScore();
     });
     done.addEventListener("click", function () {
-      done.classList.add("hidden");
-      restart.classList.add("hidden");
-      playfield.resetPlayfield();
-      message.textContent = "Thank you for playing!";
+      playfield.quitScreen(done, restart, playfield, message);
     });
   }
   //method that checks if answer is correct
