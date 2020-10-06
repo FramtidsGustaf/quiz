@@ -16,7 +16,7 @@ body {
 .grid {
   margin-top: 40px;
   display: grid;
-  grid-template-columns: repeat(1fr);
+  grid-template-columns: 1fr;
   grid-gap: 10px;
 }
 .answer_div {
