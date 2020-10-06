@@ -72,8 +72,8 @@ class Game {
   //method that checks if answer is correct
   correctingAnswers(player, answerdQuestion) {
     let amountCorrect = 0;
+    let amountClicked = 0;
     let amountClickedAndCorrect = 0;
-
     for (let i = 0; i < answerdQuestion.length; i++) {
       let answerElement = document.getElementById(`answer${i}`);
       answerElement.classList.remove("answer_div");
@@ -86,9 +86,11 @@ class Game {
       }
       if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
         amountClickedAndCorrect++;
+      } else if (answerdQuestion[i].clicked) {
+        amountClicked++;
       }
     }
-    if (amountCorrect === amountClickedAndCorrect) {
+    if (amountCorrect === (amountClickedAndCorrect + amountClicked) / 2) {
       player.changeScore(1);
       player.currentScoreOutput();
     }

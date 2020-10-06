@@ -32,7 +32,7 @@ body {
   cursor: pointer;
 }
 .answer_div:hover {
-  border: 2px solid #ffab39;
+  border: 5px solid #ffab39;
 }
 .correct_div {
   color: #212121;
@@ -59,7 +59,8 @@ body {
   justify-content: center;
 }
 .clicked {
-  background-color: #3772ff;
+  background-color: #ffab39;
+  color: #212121;
 }
 .hidden {
   display: none;
