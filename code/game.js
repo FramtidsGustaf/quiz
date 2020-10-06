@@ -109,7 +109,7 @@ class Game {
     let correctAnswers = inputArray.map((element) => Object.values(element.correct_answers));
     let mergedArray = answers.map(() => new Array());
 
-    /*here we are taking the question and the corresponding boolean and
+    /*here we are taking the answer and the corresponding boolean and
      pushes them in to an array wich we then pushes in to the merged array.
      this way we are gathering the answers and the boolean at the same place*/
     for (let i = 0; i < mergedArray.length; i++) {
