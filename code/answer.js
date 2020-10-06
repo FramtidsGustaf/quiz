@@ -4,7 +4,7 @@ class Answer {
     this.index = index;
     this.element = document.getElementById(`answer${this.index}`);
     this.output(this.answers);
-    this.correct = correct === "true" ? true : false;
+    this.correct = correct === "true" ? true : false; //self-invented way of converting a string to boolean
     this.clicked = false;
   }
   //outputs this answer
