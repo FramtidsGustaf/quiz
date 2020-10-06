@@ -1,5 +1,6 @@
 class Playfield {
-  constructor() {
+  constructor(player) {
+    this.player = player;
     this.questionElement = document.getElementById("question_output");
     this.questionCategory = document.getElementById("question_category");
     this.questionNumber = document.getElementById("question_number");
@@ -9,6 +10,8 @@ class Playfield {
     this.message = document.getElementById("question_output");
     this.start = document.getElementById("start_input");
     this.counter = 0;
+    this.questionArray;
+    this.answerArray;
   }
   //resets the playfield
   resetPlayfield() {
@@ -39,21 +42,19 @@ class Playfield {
     this.start.setAttribute("class", "hidden");
   }
   //outputs the question and the answers and finaly returns an array filled with objects from the class Answer
-  createPlayfield(questionArray, answerArray) {
-    this.questionNumber.textContent = `Question: ${this.counter + 1}/${
-      questionArray.length
-    }`;
+  createPlayfield() {
+    this.questionNumber.textContent = `Question: ${this.counter + 1}/${this.questionArray.length}`;
     this.questionCategory.textContent =
-      questionArray[this.counter].category === ""
+      this.questionArray[this.counter].category === ""
         ? "Category: Random"
-        : `Category: ${questionArray[this.counter].category}`;
-    this.questionElement.textContent = questionArray[this.counter].question;
+        : `Category: ${this.questionArray[this.counter].category}`;
+    this.questionElement.textContent = this.questionArray[this.counter].question;
     let outputtedAnswers = [];
 
     for (let i = 0; i < 6; i++) {
-      if (answerArray[this.counter][i][0]) {
+      if (this.answerArray[this.counter][i][0]) {
         outputtedAnswers.push(
-          new Answer(i, answerArray[this.counter][i][0], answerArray[this.counter][i][1])
+          new Answer(i, this.answerArray[this.counter][i][0], this.answerArray[this.counter][i][1])
         );
         outputtedAnswers[i].element.addEventListener("click", function () {
           if (!outputtedAnswers[i].clicked) {
@@ -71,25 +72,25 @@ class Playfield {
   }
   //outputs the quitscreen when user press the done button
   quitScreen() {
-    done.classList.add("hidden");
-    restart.classList.add("hidden");
-    message.textContent = "Thank you for playing!";
+    this.done.classList.add("hidden");
+    this.restart.classList.add("hidden");
+    this.message.textContent = "Thank you for playing!";
   }
   //outputs the resultscreen when user press the get resultbutton
-  resultScreen(player) {
+  resultScreen() {
     this.restart.classList.remove("hidden");
     this.done.classList.remove("hidden");
     this.resultButton.classList.add("hidden");
-    if (player.score === 1) {
-      this.message.textContent = `Congrats, ${player.name}! You got ${player.score} point!`;
+    if (this.player.score === 1) {
+      this.message.textContent = `Congrats, ${this.player.name}! You got ${this.player.score} point!`;
     } else {
-      this.message.textContent = `Congrats, ${player.name}! You got ${player.score} points!`;
+      this.message.textContent = `Congrats, ${this.player.name}! You got ${this.player.score} points!`;
     }
     this.message.classList.remove("hidden");
   }
   //toggles between buttons and their values
-  resultStartNextQuestionToggle(answerArray) {
-    if (this.counter === answerArray.length) {
+  resultStartNextQuestionToggle() {
+    if (this.counter === this.answerArray.length) {
       this.resultButton.classList.remove("hidden");
     } else {
       let startButton = document.getElementById("start_button");
@@ -97,6 +98,7 @@ class Playfield {
       startButton.classList.remove("hidden");
     }
   }
+  //resets the counter
   resetCounter() {
     this.counter = 0;
   }
