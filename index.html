@@ -5,16 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=PT+Mono&display=swap"
       rel="stylesheet"
     />
     <title>Quiz</title>
   </head>
   <body>
-    <h1 id="quiz_title">Quiz</h1>
+    <h1 id="quiz_title">
+      new <span id="quiz_word">Quiz</span><span id="parentheses">()</span>;
+    </h1>
     <form id="start_input">
       <label for="amount_questions">How many questions?</label>
-      <select name="amount_questions" id="amount_questions">
+      <select name="amount_questions" id="amount_questions" class="input_styling">
         <option value="5">5</option>
         <option value="6">6</option>
         <option value="7">7</option>
@@ -22,10 +24,16 @@
         <option value="9">9</option>
         <option value="10">10</option>
       </select>
-      <input type="text" id="player_name" placeholder="Name" autocomplete="off" />
+      <input
+        type="text"
+        id="player_name"
+        placeholder="Name"
+        autocomplete="off"
+        class="input_styling"
+      />
       <input type="button" value="Submit" id="submit_button" />
     </form>
-    <h6 id="question_number"></h6>
+    <h5 id="question_number"></h5>
     <h4 id="question_category"></h4>
     <h3 id="question_output"></h3>
     <p id="start_message" class="hidden">

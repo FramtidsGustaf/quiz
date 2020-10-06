@@ -2,12 +2,12 @@ class Playfield {
   constructor() {
     this.questionElement = document.getElementById("question_output");
     this.questionCategory = document.getElementById("question_category");
-    this.answerNumber = document.getElementById("question_number");
+    this.questionNumber = document.getElementById("question_number");
   }
   resetPlayfield() {
     this.questionElement.textContent = "";
     this.questionCategory.textContent = "";
-    this.answerNumber.textContent = "";
+    this.questionNumber.textContent = "";
     for (let i = 0; i < 6; i++) {
       let tempElement = document.getElementById(`answer${i}`);
       if (!tempElement.classList.contains("hidden")) {
@@ -27,62 +27,14 @@ class Playfield {
       }
     }
   }
-  /*Method that takes all the answers and the boolean that says whether they are correct or not and
-  puts them in a multidimentional array*/
-  createAnswerArray(inputArray) {
-    let answers = [];
-    let correctAnswers = [];
-
-    for (let element of inputArray) {
-      let tempAnswers = Object.values(element.answers);
-      answers.push(tempAnswers);
-      let tempCorrectAnswers = Object.values(element.correct_answers);
-      correctAnswers.push(tempCorrectAnswers);
-    }
-    let mergeArray = answers.map(() => new Array());
-
-    for (let i = 0; i < mergeArray.length; i++) {
-      for (let j = 0; j < 6; j++) {
-        let temp = [];
-        temp.push(answers[i][j]);
-        temp.push(correctAnswers[i][j]);
-        mergeArray[i].push(temp);
-      }
-    }
-    return mergeArray;
-  }
   //Method that hides the start functionalities
   hideStart() {
     let start = document.getElementById("start_input");
     start.setAttribute("class", "hidden");
   }
-  //method that checks if answer is correct
-  correctingAnswers(player, answerdQuestion) {
-    let amountCorrect = 0;
-    let amountClickedAndCorrect = 0;
-
-    for (let i = 0; i < answerdQuestion.length; i++) {
-      let answerElement = document.getElementById(`answer${i}`);
-      answerElement.classList.remove("answer_div");
-
-      if (answerdQuestion[i].correct) {
-        answerElement.classList.add("correct_div");
-        amountCorrect++;
-      } else {
-        answerElement.classList.add("false_div");
-      }
-      if (answerdQuestion[i].correct && answerdQuestion[i].clicked) {
-        amountClickedAndCorrect++;
-      }
-    }
-    if (amountCorrect === amountClickedAndCorrect) {
-      player.changeScore(1);
-      player.currentScoreOutput();
-    }
-  }
   //method that outputs the question and the answers and finaly returns an array filled with objects from the class Answer
   createPlayfield(questionArray, answerArray, counter) {
-    this.answerNumber.textContent = `Question: ${counter + 1}/${questionArray.length}`;
+    this.questionNumber.textContent = `Question: ${counter + 1}/${questionArray.length}`;
     this.questionCategory.textContent =
       questionArray[counter].category === ""
         ? "Category: Random"
