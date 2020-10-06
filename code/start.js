@@ -4,9 +4,9 @@ class Start {
     this.start(this.questions, this.playerNameInput);
   }
   //method that calls two methods when startbutton is clicked
-  start(questionMethod, playerNameInputMethod) {
+  start(question, playerNameInput) {
     this.submitButton.addEventListener("click", function () {
-      questionMethod(playerNameInputMethod());
+      question(playerNameInput());
     });
   }
   /*Method that takes the chosen amount of questions and fetch them from the api
