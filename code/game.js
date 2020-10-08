@@ -10,11 +10,13 @@ class Game {
       this.questions,
       this.player,
       this.correctingAnswers,
-      this.createAnswerArray
+      this.createAnswerArray,
+      this.done,
+      this.result
     );
   }
   //The whole quiz is controlled from this method
-  quiz(playfield, questions, player, correctingAnswers, createAnswerArray) {
+  quiz(playfield, questions, player, correctingAnswers, createAnswerArray, done, result) {
     playfield.questionArray = questions;
     let answerArray = createAnswerArray(questions);
     playfield.answerArray = answerArray;
@@ -22,8 +24,8 @@ class Game {
     startButton.classList.remove("hidden");
     let answerButton = document.getElementById("answer_button");
     let answersToOutput;
-    let restart = document.getElementById("restart_button");
-    let done = document.getElementById("done_button");
+    let restartButton = document.getElementById("restart_button");
+    let doneButton = document.getElementById("done_button");
     let resultButton = document.getElementById("result_button");
     let welcomeMessage = document.getElementById("welcome_message");
     welcomeMessage.classList.remove("hidden");
@@ -44,15 +46,12 @@ class Game {
       playfield.resultStartNextQuestionToggle();
     });
 
-    resultButton.addEventListener("click", function () {
-      playfield.resetPlayfield();
-      playfield.resultScreen();
-    });
+    result(resultButton, player, playfield);
 
-    restart.addEventListener("click", function () {
+    restartButton.addEventListener("click", function () {
       welcomeMessage.classList.remove("hidden");
-      restart.classList.add("hidden");
-      done.classList.add("hidden");
+      restartButton.classList.add("hidden");
+      doneButton.classList.add("hidden");
       playfield.resetCounter();
       playfield.resetPlayfield();
 
@@ -70,7 +69,18 @@ class Game {
       player.resetScore();
     });
 
-    done.addEventListener("click", function () {
+    done(doneButton, player, playfield);
+  }
+  result(resultButton, player, playfield) {
+    resultButton.addEventListener("click", function () {
+      player.hideCurrentScore();
+      playfield.resetPlayfield();
+      playfield.resultScreen();
+    });
+  }
+  done(doneButton, player, playfield) {
+    doneButton.addEventListener("click", function () {
+      player.hideCurrentScore();
       playfield.resetPlayfield();
       playfield.quitScreen();
     });
