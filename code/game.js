@@ -14,8 +14,7 @@ class Game {
     );
   }
   //The whole quiz is controlled from this method
-  quiz(playfield, questionsInput, player, correctingAnswers, createAnswerArray) {
-    let questions = questionsInput;
+  quiz(playfield, questions, player, correctingAnswers, createAnswerArray) {
     playfield.questionArray = questions;
     let answerArray = createAnswerArray(questions);
     playfield.answerArray = answerArray;
@@ -56,6 +55,7 @@ class Game {
       done.classList.add("hidden");
       playfield.resetCounter();
       playfield.resetPlayfield();
+
       fetch(
         `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${questions.length}`
       )
