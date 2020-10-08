@@ -4,6 +4,7 @@ class Game {
     this.player = new Player(playerName); //creates an object of the class Player
     this.playfield = new Playfield(this.player);
     this.playfield.hideStart();
+    this.answersToOutput;
     //calling the "main-method"
     this.quiz(
       this.playfield,
@@ -21,9 +22,9 @@ class Game {
     let answerArray = createAnswerArray(questions);
     playfield.answerArray = answerArray;
     let startButton = document.getElementById("start_button");
+    let answersToOutput;
     startButton.classList.remove("hidden");
     let answerButton = document.getElementById("answer_button");
-    let answersToOutput;
     let restartButton = document.getElementById("restart_button");
     let doneButton = document.getElementById("done_button");
     let resultButton = document.getElementById("result_button");
@@ -71,6 +72,7 @@ class Game {
 
     done(doneButton, player, playfield);
   }
+
   result(resultButton, player, playfield) {
     resultButton.addEventListener("click", function () {
       player.hideCurrentScore();
