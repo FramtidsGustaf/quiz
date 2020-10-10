@@ -1,25 +1,26 @@
 class Game {
   constructor(questionArray, playerName) {
-    this.questions = questionArray;
+    this.questions = new Question(questionArray);
     this.player = new Player(playerName); //creates an object of the class Player
     this.playfield = new Playfield(this.player);
     this.playfield.hideStart();
     //calling the "main-method"
     this.quiz(
       this.playfield,
-      this.questions,
       this.player,
       this.correctingAnswers,
       this.createAnswerArray,
       this.done,
-      this.result
+      this.result,
+      this.questions
     );
   }
   //The whole quiz is controlled from this method
-  quiz(playfield, questions, player, correctingAnswers, createAnswerArray, done, result) {
-    playfield.questionArray = questions;
-    let answerArray = createAnswerArray(questions);
-    playfield.answerArray = answerArray;
+  quiz(playfield, player, correctingAnswers, createAnswerArray, done, result, questions) {
+    questions.createAnswerArray();
+    //let answerArray = createAnswerArray(questions);
+    console.log(questions.questions);
+    
     let startButton = document.getElementById("start_button");
     let answersToOutput;
     startButton.classList.remove("hidden");
@@ -31,8 +32,10 @@ class Game {
     welcomeMessage.classList.remove("hidden");
     let nameToOutput = document.getElementById("user_name");
     nameToOutput.textContent = player.name;
-
+    
     startButton.addEventListener("click", function () {
+      playfield.questionArray = questions.questions;
+      playfield.answerArray = questions.answers;
       welcomeMessage.classList.add("hidden");
       answerButton.classList.remove("hidden");
       startButton.classList.add("hidden");
@@ -54,16 +57,7 @@ class Game {
       doneButton.classList.add("hidden");
       playfield.resetCounter();
       playfield.resetPlayfield();
-
-      fetch(
-        `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${questions.length}`
-      )
-        .then((respons) => respons.json())
-        .then((data) => (questions = data))
-        .then((questions) => (playfield.questionArray = questions))
-        .then((questions) => (answerArray = createAnswerArray(questions)))
-        .then((answerArray) => (playfield.answerArray = answerArray));
-
+      questions.getNewQuestions();
       startButton.value = "Start";
       startButton.classList.remove("hidden");
       player.resetScore();

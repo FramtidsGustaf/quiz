@@ -19,7 +19,7 @@ class Start {
     fetch(
       `https://quizapi.io/api/v1/questions?apiKey=YTE8b9GiIfGRyRdeo3KsJa0owKtVmjiCic95wfq2&limit=${amountOfQuestions}`
     )
-      .then((respons) => respons.json())
+      .then((response) => response.json())
       .then((data) => new Game(data, playerName));
   }
 
