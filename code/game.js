@@ -9,14 +9,13 @@ class Game {
       this.playfield,
       this.player,
       this.correctingAnswers,
-      this.createAnswerArray,
       this.done,
       this.result,
       this.questions
     );
   }
   //The whole quiz is controlled from this method
-  quiz(playfield, player, correctingAnswers, createAnswerArray, done, result, questions) {
+  quiz(playfield, player, correctingAnswers, done, result, questions) {
     questions.createAnswerArray();
     //let answerArray = createAnswerArray(questions);
     console.log(questions.questions);
