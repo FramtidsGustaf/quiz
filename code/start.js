@@ -1,6 +1,8 @@
 class Start {
   constructor() {
     this.submitButton = document.getElementById("submit_button");
+    this.quizTitle = document.getElementsByClassName("quiz_title")[0];
+    this.startAnimation();
     this.start(this.questions, this.playerNameInput);
   }
   //method that calls two methods when startbutton is clicked
@@ -23,5 +25,8 @@ class Start {
   playerNameInput() {
     let playerName = document.getElementById("player_name").value;
     return playerName;
+  }
+  startAnimation() {
+    this.quizTitle.classList.add("quiz_title_landing");
   }
 }

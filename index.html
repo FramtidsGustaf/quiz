@@ -8,7 +8,9 @@
     <title>Quiz</title>
   </head>
   <body>
-    <h1 id="quiz_title">new <span id="quiz_word">Quiz</span><span id="parentheses">()</span>;</h1>
+    <h1 class="quiz_title">
+      new <span id="quiz_word">Quiz</span><span id="parentheses">()</span>;
+    </h1>
     <form id="start_input">
       <label for="amount_questions">How many questions?</label>
       <select name="amount_questions" id="amount_questions" class="input_styling">
@@ -48,12 +50,13 @@
     <input type="button" value="Play Again" id="restart_button" class="hidden" />
     <input type="button" value="Done" id="done_button" class="hidden" />
     <input type="button" value="Get Result" id="result_button" class="hidden" />
-    <div id="question_feedback"></div>
+    <div id="question_feedback" class="hidden"></div>
     <script src="code/code.js"></script>
     <script src="code/game.js"></script>
     <script src="code/start.js"></script>
     <script src="code/player.js"></script>
     <script src="code/answer.js"></script>
     <script src="code/playfield.js"></script>
+    <script src="code/questions.js"></script>
   </body>
 </html>

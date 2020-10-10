@@ -30,6 +30,7 @@ body {
   flex-direction: column;
   justify-content: center;
   cursor: pointer;
+  transition: 0.1s all ease-in;
 }
 .answer_div:hover {
   border: 5px solid #ffab39;
@@ -45,6 +46,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: 0.2s all ease-in;
 }
 .false_div {
   color: #212121;
@@ -57,6 +59,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  transition: 0.2s all ease-in;
 }
 .clicked {
   background-color: #ffab39;
@@ -64,6 +67,13 @@ body {
 }
 .hidden {
   display: none;
+}
+.quiz_title {
+  opacity: 0;
+}
+.quiz_title_landing {
+  opacity: 1;
+  transition: 1s all ease-in;
 }
 #quiz_word {
   color: #ffbe45;
