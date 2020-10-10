@@ -11,10 +11,9 @@ class Start {
       questions(playerNameInput());
     });
   }
-  /*Method that takes the chosen amount of questions and fetch them from the api
+  /*Method that takes the chosen amount of questions and fetches them from the api
   then creates an object from the Game class with the, from the api, given array and the playername as argument*/
-  
-  
+
   questions(playerName) {
     let amountOfQuestions = document.getElementById("amount_questions").value;
     fetch(
@@ -26,8 +25,7 @@ class Start {
 
   /*Method that takes the players name and return it*/
   playerNameInput() {
-    let playerName = document.getElementById("player_name").value;
-    return playerName;
+    return document.getElementById("player_name").value;
   }
   startAnimation() {
     this.quizTitle.classList.add("quiz_title_landing");

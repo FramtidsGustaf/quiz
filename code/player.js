@@ -13,6 +13,7 @@ class Player {
     this.questionFeedback.classList.remove("hidden");
     this.questionFeedback.textContent = `Score: ${this.score}`;
   }
+  //hides the current score feedback that is visible meanwhile the quiz is on
   hideCurrentScore() {
     this.questionFeedback.classList.add("hidden");
   }

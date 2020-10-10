@@ -71,7 +71,7 @@ class Game {
 
     done(doneButton, player, playfield);
   }
-
+  //lets the player know the score, 
   result(resultButton, player, playfield) {
     resultButton.addEventListener("click", function () {
       player.hideCurrentScore();
@@ -79,6 +79,7 @@ class Game {
       playfield.resultScreen();
     });
   }
+  //farewell message when player is done
   done(doneButton, player, playfield) {
     doneButton.addEventListener("click", function () {
       player.hideCurrentScore();
@@ -116,8 +117,13 @@ class Game {
   /*Method that takes all the answers and the boolean that says whether they are correct or not and
   puts them in a multidimentional array*/
   createAnswerArray(inputArray) {
-    let answers = inputArray.map((element) => Object.values(element.answers));
+    /*answers becomes an array with as many elements as questions
+    every element is an array with the current questions answers*/ 
+    let answers = inputArray.map((element) => Object.values(element.answers)); 
+    /*correctAnswers is the same as answers but with booleans instead of answers */
     let correctAnswers = inputArray.map((element) => Object.values(element.correct_answers));
+    /*mergedArray is an array with as many elements as answers
+    every element is an empty array*/
     let mergedArray = answers.map(() => new Array());
 
     /*here we are taking the answer and the corresponding boolean and
