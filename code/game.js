@@ -16,10 +16,6 @@ class Game {
   }
   //The whole quiz is controlled from this method
   quiz(playfield, player, correctingAnswers, done, result, questions) {
-    questions.createAnswerArray();
-    //let answerArray = createAnswerArray(questions);
-    console.log(questions.questions);
-    
     let startButton = document.getElementById("start_button");
     let answersToOutput;
     startButton.classList.remove("hidden");
@@ -31,6 +27,7 @@ class Game {
     welcomeMessage.classList.remove("hidden");
     let nameToOutput = document.getElementById("user_name");
     nameToOutput.textContent = player.name;
+    questions.createAnswerArray();
     
     startButton.addEventListener("click", function () {
       playfield.questionArray = questions.questions;
@@ -106,30 +103,5 @@ class Game {
       player.changeScore(1);
       player.currentScoreOutput();
     }
-  }
-  /*Method that takes all the answers and the boolean that says whether they are correct or not and
-  puts them in a multidimentional array*/
-  createAnswerArray(inputArray) {
-    /*answers becomes an array with as many elements as questions
-    every element is an array with the current questions answers*/ 
-    let answers = inputArray.map((element) => Object.values(element.answers)); 
-    /*correctAnswers is the same as answers but with booleans instead of answers */
-    let correctAnswers = inputArray.map((element) => Object.values(element.correct_answers));
-    /*mergedArray is an array with as many elements as answers
-    every element is an empty array*/
-    let mergedArray = answers.map(() => new Array());
-
-    /*here we are taking the answer and the corresponding boolean and
-     pushes them in to an array wich we then pushes in to the merged array.
-     this way we are gathering the answers and the boolean at the same place*/
-    for (let i = 0; i < mergedArray.length; i++) {
-      for (let j = 0; j < 6; j++) {
-        let temp = [];
-        temp.push(answers[i][j]);
-        temp.push(correctAnswers[i][j]);
-        mergedArray[i].push(temp);
-      }
-    }
-    return mergedArray;
   }
 }
