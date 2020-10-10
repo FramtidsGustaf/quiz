@@ -4,7 +4,6 @@ class Game {
     this.player = new Player(playerName); //creates an object of the class Player
     this.playfield = new Playfield(this.player);
     this.playfield.hideStart();
-    this.answersToOutput;
     //calling the "main-method"
     this.quiz(
       this.playfield,
