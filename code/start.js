@@ -6,13 +6,15 @@ class Start {
     this.start(this.questions, this.playerNameInput);
   }
   //method that calls two methods when startbutton is clicked
-  start(question, playerNameInput) {
+  start(questions, playerNameInput) {
     this.submitButton.addEventListener("click", function () {
-      question(playerNameInput());
+      questions(playerNameInput());
     });
   }
   /*Method that takes the chosen amount of questions and fetch them from the api
   then creates an object from the Game class with the, from the api, given array and the playername as argument*/
+  
+  
   questions(playerName) {
     let amountOfQuestions = document.getElementById("amount_questions").value;
     fetch(
@@ -21,6 +23,7 @@ class Start {
       .then((respons) => respons.json())
       .then((data) => new Game(data, playerName));
   }
+
   /*Method that takes the players name and return it*/
   playerNameInput() {
     let playerName = document.getElementById("player_name").value;
