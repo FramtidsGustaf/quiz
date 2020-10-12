@@ -24,7 +24,7 @@ body {
   border: 2px solid #f038ff;
   border-radius: 3px;
   padding-left: 20px;
-  height: 70px;
+  min-height: 70px;
   max-width: 50em;
   display: flex;
   flex-direction: column;
